@@ -19,10 +19,12 @@ git clone https://github.com/xiaorouji/openwrt-passwall package/gfwdown/passwall
 mkdir -p package/gfwdown/redsocks2
 wget https://raw.githubusercontent.com/coolsnowwolf/lede/a0ff7c025aaea37ccbb382d9f45ebe1b77c35b4b/package/lean/redsocks2/Makefile -O package/gfwdown/redsocks2/Makefile
 
-wget https://raw.githubusercontent.com/coolsnowwolf/lede/master/tools/Makefile -O tools/Makefile
-
 mkdir -p tools/ucl 
 wget https://raw.githubusercontent.com/Lienol/openwrt/af6e1632cd9250c0b4dc47606c1eb92ba4b3ae81/tools/ucl/Makefile -O tools/ucl/Makefile
 
 mkdir -p tools/upx
 wget https://raw.githubusercontent.com/Lienol/openwrt/af6e1632cd9250c0b4dc47606c1eb92ba4b3ae81/tools/upx/Makefile -O tools/upx/Makefile
+
+#添加upx到工具makefile中
+sed -i '$ a tools-y += ucl upx' tools/Makefile
+sed -i '$ a $(curdir)/upx/compile := $(curdir)/ucl/compile' tools/Makefile
